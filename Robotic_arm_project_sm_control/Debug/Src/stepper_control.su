@@ -1,0 +1,7 @@
+stepper_control.c:25:6:init_stepper_control	16	static
+stepper_control.c:33:6:set_speed	16	static
+stepper_control.c:38:6:set_direction	16	static
+stepper_control.c:43:6:set_feed_steps	16	static
+stepper_control.c:53:6:update_step	8	static
+stepper_control.c:75:6:update_speed	24	static
+stepper_control.c:113:6:run	4	static

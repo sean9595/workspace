@@ -1,0 +1,119 @@
+/**
+  ******************************************************************************
+  * File Name          : stepper_control.c
+  * Description        : This file contains all the functions prototypes for
+  *                      the stepper motor control.
+  ******************************************************************************
+  * Author: Sean Kim
+  * Original author: Yumi
+  * Date: 2019.08.30
+  ******************************************************************************
+  */
+
+#include "stepper_control.h"
+
+unsigned int cur_step;
+unsigned int feed_step;
+unsigned int acceleration_feed;
+unsigned int deceleration_feed;
+unsigned int acc;
+unsigned int cur_speed; //current speed
+unsigned int dst_speed;
+int direction;
+TIM_HandleTypeDef *htim;
+
+void init_stepper_control(TIM_HandleTypeDef *_htim)
+{
+	htim = _htim;
+	htim->Instance->CR1 &= ~(0x1); //CR1=timer control reg. 1
+	                               //a&=b->a=a&b(bitwise operator).
+	                               //~(uint32_t)-> bitwise NOT operator.
+}
+
+void set_speed(unsigned int _val)
+{
+	dst_speed = _val;
+}
+
+void set_direction(int _val)
+{
+
+}
+
+void set_feed_steps(int _val)
+{
+	// 360 deg. = 200 pulse
+	feed_step = (_val / 360.0) * 200 - 1;
+	cur_step = 0;
+	acceleration_feed = feed_step * 0.3;
+	deceleration_feed = feed_step * 0.7; //30% offset
+	run();
+}
+
+void update_step()
+{
+	update_speed();
+
+	if (feed_step > 0)
+	{
+		if ((htim->Instance->CCR1 & 0x1) != 0x1)
+		{
+			htim->Instance->CR1 |= 0x1; //|=->bitwise OR operator
+		}
+
+		feed_step--;
+		cur_step++;
+	}
+	else
+	{
+		htim->Instance->CR1 &= ~(0x1);
+		cur_speed = 0;
+	}
+
+}
+
+void update_speed()
+{
+	// unit of speed is "/sec" (degree per second).
+	// 200 pulse = 360 deg
+	int pulse = 0;
+	int arr = 0;
+	int ccr = 0;
+
+	if (cur_step == 0)
+	{
+		cur_speed = 100;
+		acc = (dst_speed - 100) / acceleration_feed;
+	}
+	else if (cur_step <= acceleration_feed)
+	{
+		cur_speed += acc;
+	}
+	else if (cur_step > deceleration_feed)
+	{
+		cur_speed -= acc;
+	}
+	else if (cur_step > acceleration_feed && cur_step < deceleration_feed)
+	{
+		cur_speed = dst_speed;
+	} //This code sets speed at offset regions.
+
+	if (cur_speed != 0)
+	{
+		pulse = (cur_speed / 360.0) * 200; //pulse per sec.
+		arr = 100000 / pulse; //Speed is determined by period of the pulse. So to set speed, we have to set ARR value.
+		                      //100000-> vary in sysclock & prescaler.
+		ccr = arr / 2;
+
+		htim->Instance->ARR = arr - 1;
+		htim->Instance->CCR1 = ccr - 1;
+	}
+}
+
+void run()
+{
+	if (dst_speed != 0)
+	{
+		htim->Instance->CR1 |= 0x1; //?
+	}
+}

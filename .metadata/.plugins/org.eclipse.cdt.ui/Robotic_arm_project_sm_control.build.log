@@ -1,0 +1,10 @@
+15:50:20 **** Incremental Build of configuration Debug for project Robotic_arm_project_sm_control ****
+make -j4 all 
+arm-none-eabi-size   Robotic_arm_project_sm_control.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12536	     24	   1672	  14232	   3798	Robotic_arm_project_sm_control.elf
+Finished building: default.size.stdout
+ 
+
+15:50:25 Build Finished. 0 errors, 0 warnings. (took 5s.44ms)
+

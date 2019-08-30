@@ -1,0 +1,18 @@
+15:35:19 **** Incremental Build of configuration Debug for project Servo-control_PWM_02 ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../Inc -I../Drivers/CMSIS/Include -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/STM32H7xx_HAL_Driver/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/tim.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32H743xx -DDEBUG -c -I../Inc -I../Drivers/CMSIS/Include -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/STM32H7xx_HAL_Driver/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/tim.d" -MT"Src/tim.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Src/tim.o"
+arm-none-eabi-gcc -o "Servo-control_PWM_02.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\ranos\STM32CubeIDE\workspace_1.0.0\Servo-control_PWM_02\STM32H743ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Servo-control_PWM_02.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Servo-control_PWM_02.elf
+ 
+arm-none-eabi-objdump -h -S  Servo-control_PWM_02.elf  > "Servo-control_PWM_02.list"
+arm-none-eabi-size   Servo-control_PWM_02.elf 
+   text	   data	    bss	    dec	    hex	filename
+  34756	    216	   2968	  37940	   9434	Servo-control_PWM_02.elf
+Finished building: default.size.stdout
+ 
+Finished building: Servo-control_PWM_02.list
+ 
+
+15:35:35 Build Finished. 0 errors, 0 warnings. (took 16s.316ms)
+

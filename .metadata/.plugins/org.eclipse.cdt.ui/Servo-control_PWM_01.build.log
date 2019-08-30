@@ -1,0 +1,10 @@
+15:35:11 **** Incremental Build of configuration Debug for project Servo-control_PWM_01 ****
+make -j4 all 
+arm-none-eabi-size   Servo-control_PWM_01.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32120	     24	   2808	  34952	   8888	Servo-control_PWM_01.elf
+Finished building: default.size.stdout
+ 
+
+15:35:18 Build Finished. 0 errors, 0 warnings. (took 6s.773ms)
+
