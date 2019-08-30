@@ -527,7 +527,7 @@ HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF(void)
 
   return HAL_OK;
 }
-//abcd
+
 /**
   * @brief  Disable the Internal Voltage Reference buffer (VREFBUF).
   *
